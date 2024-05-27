@@ -4,6 +4,10 @@
     "link": "#",
     "items": [
       {
+        "title": "JavaScript正则表达式",
+        "link": "/2024/5/26/js-regular-expression/"
+      },
+      {
         "title": "JavaScript数组方法",
         "link": "/2024/5/26/js-array-method/"
       },

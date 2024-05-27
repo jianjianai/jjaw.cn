@@ -221,6 +221,7 @@ let decodedQuery = decodeURIComponent(encodedQuery);
 console.log(decodedQuery); // "搜索?query=测试"
 ```
 
+
 ## 总结
 - 特性
     - 不可变性：JavaScript中的字符串在创建后其内容不能被改变。
