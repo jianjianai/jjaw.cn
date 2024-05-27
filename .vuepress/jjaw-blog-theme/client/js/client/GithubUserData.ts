@@ -20,53 +20,67 @@ export function getGitHubUserInfoByEmail(email:string):Promise<GithubUser | null
     return pr;
 }
 
-async function getGitHubUserInfoByEmailIn(email:string) {
-    let githubUser:GithubUser|null = null;
-    let locKey = `github_user_${email}`;
-    let locItem = localStorage.getItem(locKey);
+async function getGitHubUserInfoByEmailIn(email:string):Promise<GithubUser|null>{
+    const locKey = `github_user_${email}`;
+    const locItem = localStorage.getItem(locKey);
     if("null"==locItem){
         return null;
     }
     if(locItem){
         try{
-            githubUser = JSON.parse(locItem);
+            return JSON.parse(locItem);
         }catch(error){
             console.warn(error);
         }
     }
-    if(!githubUser && email.endsWith("@users.noreply.github.com")){
-        let userInfo = email.substring(0,email.indexOf("@")).split("+",2);
-        let userID = userInfo[0];
-        let userName = userInfo[1];
-        githubUser = {
-            img: `https://avatars.githubusercontent.com/u/${userID}?v=4`,
-            githubName: userName,
-            githubPage: `https://github.com/${userName}`
+    if(email.endsWith("@users.noreply.github.com")){
+        const userInfo = email.substring(0,email.indexOf("@")).split("+",2);
+        if(userInfo.length>=2){
+            const userID = userInfo[0];
+            const userName = userInfo[1];
+            // 不用存了，因为不用去github搜索，直接重新解析就行
+            // localStorage.setItem(locKey,JSON.stringify(githubUser));
+            return {
+                img: `https://avatars.githubusercontent.com/u/${userID}?v=4`,
+                githubName: userName,
+                githubPage: `https://github.com/${userName}`
+            }
         }
-
-        // 不用存了，因为不用去github搜索，直接重新解析就行
-        // localStorage.setItem(locKey,JSON.stringify(githubUser));
-    }
-    if(!githubUser){
-        const url = new URL("https://api.github.com/search/users");
-        url.searchParams.append("per_page","1");
-        url.searchParams.append("q",`${email} in:email`);
-        let r = await fetch(url);
+        const userName = userInfo[0];
+        const r = await fetch(`https://api.github.com/users/${userName}`);
         if(!r.ok){
+            if(r.status==404){
+                localStorage.setItem(locKey,"null");
+            }
             return null;
         }
-        let json = await r.json();
-        if(!json.items?.length){ // 用户不存在
-            localStorage.setItem(locKey,"null");
-            return null;
-        }
-        let user = json.items[0];
-        githubUser = {
-            img:user.avatar_url as string,
-            githubName:user.login  as string, //github用户名称
-            githubPage: user.html_url  as string// github主页链接
+        const json = await r.json();
+        const githubUser = {
+            img:json.avatar_url as string,
+            githubName:json.login  as string, //github用户名称
+            githubPage: json.html_url  as string// github主页链接
         }
         localStorage.setItem(locKey,JSON.stringify(githubUser));
+        return githubUser
     }
+    const url = new URL("https://api.github.com/search/users");
+    url.searchParams.append("per_page","1");
+    url.searchParams.append("q",`${email} in:email`);
+    const r = await fetch(url);
+    if(!r.ok){
+        return null;
+    }
+    const json = await r.json();
+    if(!json.items?.length){ // 用户不存在
+        localStorage.setItem(locKey,"null");
+        return null;
+    }
+    const user = json.items[0];
+    const githubUser = {
+        img:user.avatar_url as string,
+        githubName:user.login  as string, //github用户名称
+        githubPage: user.html_url  as string// github主页链接
+    }
+    localStorage.setItem(locKey,JSON.stringify(githubUser));
     return githubUser
 }
