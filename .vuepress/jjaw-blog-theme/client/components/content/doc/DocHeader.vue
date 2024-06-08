@@ -1,18 +1,19 @@
 <script setup lang="ts">
 import ContentBox from '../../layouts/box/ContentBox.vue';
-import { usePageFrontmatter, RouteLink } from "vuepress/client"
+import { usePageFrontmatter, RouteLink, usePageData } from "vuepress/client"
 import TagIcon from '../../../imgs/tag.vue';
 import { hashString } from '../../../js/client/HashString';
 
 const getTagUrl = (tag: string) => `/tags/${encodeURI(tag)}/`;
 const colourClassFun = (s: string) => `colour-${Math.abs(hashString(s) % 5)}`;
 const frontmatter = usePageFrontmatter();
+const pageData = usePageData();
 
 </script>
 <template>
     <ContentBox>
         <template #default>
-            <h1 class="doc-h-h1">{{ frontmatter.title }}</h1>
+            <h1 class="doc-h-h1">{{ frontmatter.title || pageData.title  }}</h1>
             <p class="doc-h-p">{{ frontmatter.description }}</p>
             <div class="tags" v-if="frontmatter.tags && frontmatter.tags.length > 0">
                 <TagIcon class="tag-i"></TagIcon>

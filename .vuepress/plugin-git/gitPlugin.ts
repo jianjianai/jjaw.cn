@@ -81,7 +81,6 @@ export const gitPlugin =
         if(runConfig === null){
           return
         }
-        console.log(runConfig);
         const runCwd = runConfig.cwd;
 
         const filePaths = [
