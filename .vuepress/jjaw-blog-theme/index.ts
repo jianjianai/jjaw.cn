@@ -107,11 +107,9 @@ export const jjawBlogTheme = ({ seo, sitemap, giscus, externalLinkIcon, githubEd
                 mdEnhancePlugin({
                     tasklist: true, //任务列表
                     tabs: true,//选项卡
-                    codetabs: true,//代码选项卡
                     hint: true,//提示容器
                     imgLazyload: true,//原生图片懒加载
                     alert: true,//GFM 警告
-
                 }),
                 globalComponentLibraryPlugin(),
                 prefersColorSchemePlugin(),
