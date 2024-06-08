@@ -14,6 +14,10 @@
       {
         "title": "JavaScript字符串操作",
         "link": "/2024/5/22/js-string-operation/"
+      },
+      {
+        "title": "JavaScript Set 和 Map",
+        "link": "/2024/5/29/js-set-map/"
       }
     ]
   }
