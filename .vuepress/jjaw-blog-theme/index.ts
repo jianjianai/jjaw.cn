@@ -44,7 +44,7 @@ import { activeHeaderLinksPlugin } from '@vuepress/plugin-active-header-links'
 
 // https://ecosystem.vuejs.press/zh/plugins/git.html
 // 该插件会收集你的页面的 Git 信息，包括创建和更新时间、贡献者等。
-import { gitPlugin } from '@vuepress/plugin-git'
+import { gitPlugin } from '../plugin-git/gitPlugin.ts'
 
 // https://ecosystem.vuejs.press/zh/plugins/toc.html
 // 该插件会提供一个目录 (table-of-contents, TOC) 组件。

@@ -14,7 +14,6 @@ export function navAataPagePlugin(ignore:string[] = ['node_modules/**','.vuepres
                     const jsonString = await fs.readFile(file, { encoding: 'utf8' });
                     const jsonData = JSON.parse(jsonString);
                     const filePath = path.dirname(file);
-                    console.log(filePath);
                     pachUrlpachMap.set(filePath,jsonData);
                 }catch(eror){
                     throw new Error(`解析json文件出错! \n ${file} \n ${eror}`);
