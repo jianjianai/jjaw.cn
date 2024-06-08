@@ -34,7 +34,7 @@ import { seoPlugin, type SeoPluginOptions } from '@vuepress/plugin-seo'
 // sitemap
 import { sitemapPlugin, type SitemapPluginOptions } from '@vuepress/plugin-sitemap'
 
-// https://ecosystem.vuejs.press/zh/plugins/prismjs.html
+// https://ecosystem.vuejs.press/zh/plugins/markdown/prismjs.html
 // 代码高亮。
 import { prismjsPlugin } from '@vuepress/plugin-prismjs'
 
@@ -94,7 +94,9 @@ export const jjawBlogTheme = ({ seo, sitemap, giscus, externalLinkIcon, githubEd
                 blogPlugin(buildBlogPluginOptions()),
                 seoPlugin(seo),
                 sitemapPlugin(sitemap),
-                prismjsPlugin({}),
+                prismjsPlugin({
+                    lineNumbers:false
+                }),
                 activeHeaderLinksPlugin({
                     headerAnchorSelector: ".header-anchor",
                     headerLinkSelector: ".vuepress-toc-link"
@@ -116,11 +118,6 @@ export const jjawBlogTheme = ({ seo, sitemap, giscus, externalLinkIcon, githubEd
                 navAataPagePlugin(),
             ],
             extendsMarkdownOptions: (markdownOptions, app) => {
-                markdownOptions.code = {
-                    ...{
-                        lineNumbers: false
-                    }, ...markdownOptions.code
-                };
             }
         }
     }
