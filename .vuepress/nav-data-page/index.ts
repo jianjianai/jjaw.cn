@@ -14,19 +14,37 @@ export function navAataPagePlugin(ignore:string[] = ['node_modules/**','.vuepres
                     const jsonString = await fs.readFile(file, { encoding: 'utf8' });
                     const jsonData = JSON.parse(jsonString);
                     const filePath = path.dirname(file);
+                    console.log(filePath);
                     pachUrlpachMap.set(filePath,jsonData);
                 }catch(eror){
                     throw new Error(`解析json文件出错! \n ${file} \n ${eror}`);
                 }
             }));
+            function getData(dirnamePath:string){
+                const navPageData = pachUrlpachMap.get(dirnamePath);
+                if(navPageData){
+                    return navPageData;
+                }
+                while(true){
+                    let subIndex = dirnamePath.lastIndexOf("/");
+                    if(subIndex<1){
+                        return;
+                    }
+                    dirnamePath = dirnamePath.substring(0,subIndex);
+                    const data = pachUrlpachMap.get(dirnamePath);
+                    if(data){
+                        return data;
+                    }
+                }
+                return;
+            }
             // console.log(pachUrlpachMap);
             // 设置有效的页面
             for (const page of app.pages) {
                 if (!page.filePathRelative) {
                     continue;
                 }
-                const dirPath = path.dirname(page.filePathRelative);
-                const navPageData = pachUrlpachMap.get(dirPath);
+                const navPageData = getData(path.dirname(page.filePathRelative));
                 if (!navPageData) {
                     continue;
                 }
