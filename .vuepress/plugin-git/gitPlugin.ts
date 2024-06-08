@@ -7,6 +7,7 @@ import {
   getCreatedTime,
   getUpdatedTime,
 } from '@vuepress/plugin-git'
+import { glob } from 'glob'
 
 /**
  * Options of @vuepress/plugin-git
@@ -32,37 +33,74 @@ export const gitPlugin =
   ({ createdTime, updatedTime, contributors }: GitPluginOptions = {}): Plugin =>
   (app) => {
     const cwd = app.dir.source()
+    const cwdSonPathSet = new Set<string>();
     const isGitRepoValid = checkGitRepo(cwd)
+
+    function getCwd(filePathRelative):{cwd:string,path:string}{
+      const filePathRelativeF = filePathRelative
+      while(true){
+        let subIndex = filePathRelative.lastIndexOf("/");
+        if(subIndex<1){
+          if(isGitRepoValid){
+            return {
+              cwd:cwd,
+              path:filePathRelativeF
+            };
+          }else{
+            return null;
+          }
+        }
+        filePathRelative = filePathRelative.substring(0,subIndex);
+        if(cwdSonPathSet.has(filePathRelative)){
+            return {
+              cwd:`${cwd}/${filePathRelative}`,
+              path:filePathRelativeF.substring(filePathRelative.length+1)
+            };
+        }
+      }
+    }
 
     return {
       name: '@vuepress/plugin-git',
-
+      extendsMarkdownOptions: async()=>{
+        (await glob('./*/**/.git', { ignore:[] })).map((t)=>path.dirname(t)).forEach((dir)=>{
+          if(checkGitRepo(dir)){
+            cwdSonPathSet.add(dir);
+          }
+        });
+      },
       extendsPage: async (
         page: Page<GitPluginPageData, GitPluginFrontmatter>,
       ) => {
         page.data.git = {}
 
-        if (!isGitRepoValid || page.filePathRelative === null) {
+        if ( page.filePathRelative === null ) {
           return
         }
+        const runConfig = getCwd(page.filePathRelative);//获取对应的git仓库
+        if(runConfig === null){
+          return
+        }
+        console.log(runConfig);
+        const runCwd = runConfig.cwd;
 
         const filePaths = [
-          page.filePathRelative,
+          runConfig.path,
           ...(page.frontmatter.gitInclude ?? []).map((item) =>
-            path.join(page.filePathRelative, '..', item),
+            path.join(runConfig.path, '..', item),
           ),
         ]
 
         if (createdTime !== false) {
-          page.data.git.createdTime = await getCreatedTime(filePaths, cwd)
+          page.data.git.createdTime = await getCreatedTime(filePaths, runCwd)
         }
 
         if (updatedTime !== false) {
-          page.data.git.updatedTime = await getUpdatedTime(filePaths, cwd)
+          page.data.git.updatedTime = await getUpdatedTime(filePaths, runCwd)
         }
 
         if (contributors !== false) {
-          page.data.git.contributors = await getContributors(filePaths, cwd)
+          page.data.git.contributors = await getContributors(filePaths, runCwd)
         }
       },
 
