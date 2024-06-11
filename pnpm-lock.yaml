@@ -7,6 +7,10 @@ settings:
 importers:
 
   .:
+    dependencies:
+      execa:
+        specifier: ^9.2.0
+        version: 9.2.0
     devDependencies:
       '@giscus/vue':
         specifier: ^3.0.0

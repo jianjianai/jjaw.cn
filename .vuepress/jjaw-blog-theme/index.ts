@@ -62,6 +62,7 @@ import { prefersColorSchemePlugin } from '../prefers-color-scheme';
 
 // nav自动处理导航栏
 import { navAataPagePlugin } from '../nav-data-page';
+import { repsitresGitClonePlugin } from '../repsitres-git-clone/index.ts';
 
 const __dirname = getDirname(import.meta.url)
 export const jjawBlogTheme = ({ seo, sitemap, giscus, externalLinkIcon, githubEdit }: {
@@ -87,6 +88,10 @@ export const jjawBlogTheme = ({ seo, sitemap, giscus, externalLinkIcon, githubEd
             templateDev: path.resolve(__dirname, "./client/dev.html"),
             // 使用插件
             plugins: [
+                repsitresGitClonePlugin({
+                    toDir:path.join(app.dir.source(),"/git"),
+                    configFilePath:path.join(app.dir.source(),"/repositories.json")
+                }),
                 gitPlugin({}),
                 linksCheckPlugin({}),
                 externalLinkIconPlugin(externalLinkIcon),
