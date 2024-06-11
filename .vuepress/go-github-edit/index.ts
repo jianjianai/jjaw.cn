@@ -1,6 +1,7 @@
 // 
 import type { Plugin } from "vuepress/core";
 import type { github_edit } from "./github_edit_type";
+import { GitData } from "../plugin-git/types";
 
 export type githubEditPluginConfig = {
     githubAdderss: `http${"" | "s"}://${string}/${string}`,
@@ -20,6 +21,10 @@ export function githubEditPlugin({githubAdderss,branche,helpPath}:githubEditPlug
             _github_edit_helpPath_:helpPath
         },
         extendsPage(page) {
+            let gitData = page.data["git"] as GitData;
+            if(!gitData.isRoot){
+                return;
+            }
             page.data["github_edit"] = ((o: github_edit) => o)({
                 filePathRelative: page.filePathRelative
             });

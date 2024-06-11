@@ -1,6 +1,6 @@
 import type { Page, Plugin } from 'vuepress/core'
 import { path } from 'vuepress/utils'
-import type { GitPluginFrontmatter, GitPluginPageData } from '@vuepress/plugin-git'
+import type { GitPluginFrontmatter, GitPluginPageData } from './types'
 import {
   checkGitRepo,
   getContributors,
@@ -36,7 +36,7 @@ export const gitPlugin =
     const cwdSonPathSet = new Set<string>();
     const isGitRepoValid = checkGitRepo(cwd)
 
-    function getCwd(filePathRelative):{cwd:string,path:string}{
+    function getCwd(filePathRelative){
       const filePathRelativeF = filePathRelative
       while(true){
         let subIndex = filePathRelative.lastIndexOf("/");
@@ -44,7 +44,8 @@ export const gitPlugin =
           if(isGitRepoValid){
             return {
               cwd:cwd,
-              path:filePathRelativeF
+              path:filePathRelativeF,
+              isRoot:true,
             };
           }else{
             return null;
@@ -89,6 +90,8 @@ export const gitPlugin =
             path.join(runConfig.path, '..', item),
           ),
         ]
+
+        page.data.git.isRoot = runConfig.isRoot;
 
         if (createdTime !== false) {
           page.data.git.createdTime = await getCreatedTime(filePaths, runCwd)
