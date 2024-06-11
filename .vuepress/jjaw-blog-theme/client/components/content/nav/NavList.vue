@@ -43,7 +43,7 @@ import StickyContentBox from '../../layouts/box/StickyContentBox.vue';
 .nav-toc .active{
     color: var(--nav-toc-active-c);
 }
-.nav-toc > ul:has(.active) > li > a{
+.nav-toc > ul > li:has(.active) > a{
     color: var(--nav-toc-active-c);
 }
 </style>
