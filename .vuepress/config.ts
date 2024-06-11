@@ -7,7 +7,7 @@ export default defineUserConfig({
   lang: 'zh-CN',
   title: '神奇小破站',
   description: '欢迎来到神奇小破站，专注于分享最新的Java Web、前端开发、网络技术、Vue、JavaScript、TypeScript、CSS、HTML5以及Minecraft等相关内容。',
-  // shouldPrefetch:false,//如果你将它设置为 true ，所有其它页面所需的文件都会被预拉取。这对于小型站点来说是十分有帮助的，因为它会大大提升页面切换的速度。但是在你的网站有很多页面时不建议你这么做。
+  shouldPrefetch:false,//如果你将它设置为 true ，所有其它页面所需的文件都会被预拉取。这对于小型站点来说是十分有帮助的，因为它会大大提升页面切换的速度。但是在你的网站有很多页面时不建议你这么做。
   theme: jjawBlogTheme({
     seo:{
       hostname: hostName,
