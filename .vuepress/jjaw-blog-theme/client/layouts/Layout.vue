@@ -16,17 +16,16 @@ const navPageData = useNavPageData();
             <Header></Header>
         </template>
         <template #default>
-            <!-- 文章 -->
+           
             <Body>
-                <template #default> <DocMain></DocMain> </template>
+                <template #default> 
+                    <!-- 文章 -->
+                    <DocMain></DocMain>
+                    <!-- 评论区 -->
+                    <CommentsMain class="comment"></CommentsMain>
+                </template>
                 <template v-if="navPageData" #nav> <NavMain></NavMain> </template>
                 <template #aside> <Aside></Aside> </template>
-            </Body>
-            <!-- 评论区 -->
-            <Body class="comment-body">
-                <template #default> <CommentsMain></CommentsMain> </template>
-                <template v-if="navPageData" #nav></template>
-                <template #aside></template>
             </Body>
         </template>
         <template #footer>
@@ -36,7 +35,7 @@ const navPageData = useNavPageData();
 </template>
 
 <style scoped>
-.comment-body{
+.comment{
     margin-top: 1rem;
 }
 </style>
