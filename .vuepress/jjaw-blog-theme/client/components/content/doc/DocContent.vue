@@ -8,7 +8,6 @@ import EditIcon from '../../../imgs/edit.vue';
 import ToEditOnGitHubHelp from '../../../../../go-github-edit/ToEditOnGitHubHelp.vue';
 const tiemF = (tiem: number) => dateFormat(new Date(tiem), (Y, M, D, h, m) => `${Y}-${M}-${D} ${h}:${m}`);
 const page = usePageData<GitPluginPageData>();
-const { git } = page.value;
 
 
 </script>
@@ -18,7 +17,7 @@ const { git } = page.value;
             <div class="doc-header">
                 <div class="h-left">
                     <CalendarIcon class="calender-i"></CalendarIcon>
-                    <span class="calender-t">{{ tiemF(git.updatedTime) }}</span>
+                    <span class="calender-t">{{ tiemF(page.git.updatedTime) }}</span>
                 </div>
                 <ToEditOnGitHubHelp class="h-right">
                     <EditIcon class="edit-i"></EditIcon>
