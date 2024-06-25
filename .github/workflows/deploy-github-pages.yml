@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -22,41 +22,76 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  deploy:
-    name: build and deploy - 构建并部署
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  build:
+    name: build  - 构建
     runs-on: ubuntu-latest
     steps:
       - name: Checkout - 迁出文件
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
-      - name: Setup Nodejs 初始化nodejs
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-
+          
       - name: Install pnpm - 安装 pnpm
         uses: pnpm/action-setup@v4
         with:
           version: 9
-          run_install: true
+          
+      - name: Setup Nodejs 初始化nodejs
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
 
+      - name: install - 安装依赖
+        run: pnpm install
+        
       - name: build - 构建
         run: pnpm run build
+      
+      - uses: actions/upload-artifact@v4
+        with:
+          name: page-dist
+          path: ./.vuepress/dist
+  
+
+  deploy-page:
+    name: deploy-page - 部署到page
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    needs: build
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: page-dist
+          path: ./page-dist
 
       - name: Setup Pages - 初始化页面
-        uses: actions/configure-pages@v3
-
-      - name: Upload GitHub Pages artifact - 上传文件
-        uses: actions/upload-pages-artifact@v2.0.0
+        uses: actions/configure-pages@v5
+        
+      - name: Upload Pages artifact - 上传文件
+        uses: actions/upload-pages-artifact@v3
         with:
-          # Upload entire repository
-          path: './.vuepress/dist'
+          path: ./page-dist
 
-      - name: Deploy to GitHub Pages - 部署到 GitHub Pages
+      - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v4
+        
+  push-beth:
+    name: Deploy to gh-pages branch
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: page-dist
+          path: ./page-dist
+
+      - name: Deploy to gh-pages branch
+        uses: peaceiris/actions-gh-pages@v4
+        if: github.ref == 'refs/heads/master'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./page-dist
