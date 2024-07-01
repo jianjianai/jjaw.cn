@@ -227,6 +227,8 @@ qq群：820131534 (已满)
 </div>
 </Demo>
 
+## 统计
+![统计](https://bstats.org/signatures/bukkit/KnapsackToGo4.svg)
 
 ## 详细教程
 
