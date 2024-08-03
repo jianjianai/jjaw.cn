@@ -82,8 +82,12 @@
     "link": "/2024/8/3/flist-deploy/",
     "items": [
       {
-        "title": "Cloudflare Pages (推荐！最完整的功能)",
+        "title": "Cloudflare Pages (推荐！功能完整)",
         "link": "/2024/8/3/flist-deploy-cloudflare-pages/"
+      },
+      {
+        "title": "Vercel (推荐！功能完整)",
+        "link": "/2024/8/3/flist-deploy-vercel/"
       },
       {
         "title": "GitHub Pages",
