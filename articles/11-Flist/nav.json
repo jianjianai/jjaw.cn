@@ -1,0 +1,90 @@
+[
+  {
+    "title": "介绍",
+    "link": "/2024/8/3/flist-introduce/"
+  },
+  {
+    "title": "快速开始",
+    "link": "/2024/8/3/flist-fast-start/"
+  },
+  {
+    "title": "使用趁手的工具编辑配置文件",
+    "link": "#",
+    "items": [
+      {
+        "title": "直接在GitHub上修改",
+        "link": "#"
+      },
+      {
+        "title": "下载代码本地修改(不推荐)",
+        "link": "#"
+      },
+      {
+        "title": "在线IDE编辑器修改(推荐)",
+        "link": "#",
+        "items": [
+          {
+            "title": "xxx",
+            "link": "#"
+          },
+          {
+            "title": "xxx",
+            "link": "#"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "了解配置文件的写法",
+    "link": "#",
+    "items": [
+      {
+        "title": "基础",
+        "link": "#"
+      },
+      {
+        "title": "挂载文件",
+        "link": "#",
+        "items": [
+          {
+            "title": "xxx",
+            "link": "#"
+          },
+          {
+            "title": "xxx",
+            "link": "#"
+          }
+        ]
+      },
+      {
+        "title": "配置代理",
+        "link": "#",
+        "items": [
+          {
+            "title": "xxx",
+            "link": "#"
+          },
+          {
+            "title": "xxx",
+            "link": "#"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "部署到自己喜欢的平台",
+    "link": "#",
+    "items": [
+      {
+        "title": "xxx",
+        "link": "#"
+      },
+      {
+        "title": "xxx",
+        "link": "#"
+      }
+    ]
+  }
+]
