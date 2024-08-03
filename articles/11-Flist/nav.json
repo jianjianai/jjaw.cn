@@ -1,0 +1,94 @@
+[
+  {
+    "title": "介绍",
+    "link": "/2024/8/3/flist-introduce/"
+  },
+  {
+    "title": "快速开始",
+    "link": "/2024/8/3/flist-fast-start/"
+  },
+  {
+    "title": "使用趁手的工具编辑配置文件",
+    "link": "/2024/8/3/flist-edit-config/",
+    "items": [
+      {
+        "title": "直接在GitHub上修改",
+        "link": "/2024/8/3/flist-online-git-hub/"
+      },
+      {
+        "title": "下载代码本地修改(不推荐)",
+        "link": "/2024/8/3/flist-loclhost/"
+      },
+      {
+        "title": "在线IDE编辑器修改(推荐)",
+        "link": "/2024/8/3/flist-online-ide/",
+        "items": [
+          {
+            "title": "Gitpod",
+            "link": "/2024/8/3/flist-online-gitpod/"
+          },
+          {
+            "title": "StackBlitz",
+            "link": "/2024/8/3/flist-online-stack-blitz/"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "了解配置文件的写法",
+    "link": "/2024/8/3/flist-config-wite/",
+    "items": [
+      {
+        "title": "基础",
+        "link": "/2024/8/3/flist-config-base/"
+      },
+      {
+        "title": "挂载文件",
+        "link": "/2024/8/3/flist-config-mount/",
+        "items": [
+          {
+            "title": "GitHub Releases",
+            "link": "/2024/8/3/flist-config-mount-git-hub-releases/"
+          },
+          {
+            "title": "Hugging Face Datasets",
+            "link": "/2024/8/3/flist-config-mount-hugging-face-fatasets/"
+          },
+          {
+            "title": "URL 下载地址",
+            "link": "/2024/8/3/flist-config-mount-down-url/"
+          }
+        ]
+      },
+      {
+        "title": "配置代理",
+        "link": "/2024/8/3/flist-config-porxy/",
+        "items": [
+          {
+            "title": "Cloudflare Pages",
+            "link": "/2024/8/3/flist-config-porxy-git-hub-releases/"
+          },
+          {
+            "title": "Vercel",
+            "link": "/2024/8/3/flist-config-porxy-vercel/"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "部署到自己喜欢的平台",
+    "link": "/2024/8/3/flist-deploy/",
+    "items": [
+      {
+        "title": "Cloudflare Pages (推荐！最完整的功能)",
+        "link": "/2024/8/3/flist-deploy-cloudflare-pages/"
+      },
+      {
+        "title": "GitHub Pages",
+        "link": "/2024/8/3/flist-deploy-git-hub-pages/"
+      }
+    ]
+  }
+]
