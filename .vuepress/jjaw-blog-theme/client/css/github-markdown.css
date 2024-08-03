@@ -1221,7 +1221,7 @@ html .markdown-body,
 
 /* 补充样式 */
 .markdown-body .header-anchor{
-  color: var(--theme-text-1);
+  color: var(--color-fg-default);
 }
 .markdown-body .header-anchor:hover{
   text-decoration: none;
