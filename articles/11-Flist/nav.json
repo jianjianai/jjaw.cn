@@ -75,7 +75,7 @@
           },
           {
             "title": "Netlify",
-            "link": "/2024/8/3/flist-config-porxy-netlify/"
+            "link": "/2024/8/5/flist-config-porxy-netlify/"
           }
         ]
       }
@@ -92,6 +92,10 @@
       {
         "title": "Vercel (推荐！功能完整)",
         "link": "/2024/8/3/flist-deploy-vercel/"
+      },
+      {
+        "title": "Netlify (推荐！功能完整)",
+        "link": "/2024/8/5/flist-deploy-netlify/"
       },
       {
         "title": "GitHub Pages",

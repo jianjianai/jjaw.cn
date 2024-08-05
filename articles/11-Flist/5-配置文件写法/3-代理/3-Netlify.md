@@ -1,6 +1,6 @@
 ---
 # 页面路径
-permalinkPattern: 2024/8/3/flist-config-porxy-netlify/
+permalinkPattern: 2024/8/5/flist-config-porxy-netlify/
 
 title: FList - Netlify 下载代理
 star: false
