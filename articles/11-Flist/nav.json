@@ -72,6 +72,10 @@
           {
             "title": "Vercel",
             "link": "/2024/8/3/flist-config-porxy-vercel/"
+          },
+          {
+            "title": "Netlify",
+            "link": "/2024/8/3/flist-config-porxy-netlify/"
           }
         ]
       }
