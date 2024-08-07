@@ -4,8 +4,7 @@ permalinkPattern: 2024/5/26/js-regular-expression/
 
 title: JavaScript正则表达式 - 前端开发入门
 description: 深入了解JavaScript正则表达式及其强大的功能。本教程详细介绍了正则表达式的语法、模式匹配、字符串搜索、替换操作以及高级技巧。无论您是编程新手还是经验丰富的开发者，都能通过本教程快速提升在文本处理和Web开发中的正则表达式应用技能。
-tags: ["前端"]
-star: true
+star: false
 
 # 启用评论评论
 comment: true

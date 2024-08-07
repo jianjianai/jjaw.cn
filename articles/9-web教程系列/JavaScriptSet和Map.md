@@ -4,8 +4,7 @@ permalinkPattern: 2024/5/29/js-set-map/
 
 title: JavaScript Set 和 Map - 前端开发入门
 description: Set 和 Map 是 JavaScript 中的两个重要数据结构。Set 允许存储任何类型的唯一值。此外，Set 的性能优于数组，尤其在添加、删除和查找元素方面。Map 是一种数据结构，用于存储键值对。与普通对象不同，Map 允许使用任何类型的键，而不仅限于字符串。此外，Map 在大量数据操作时，Map 的性能也优越于普通对象。
-tags: ["前端"]
-star: true
+star: false
 
 # 启用评论评论
 comment: true

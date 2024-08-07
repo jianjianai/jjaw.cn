@@ -4,8 +4,7 @@ permalinkPattern: 2024/5/26/js-array-method/
 
 title: JavaScript数组方法 - 前端开发入门
 description: 深入了解JavaScript数组及其丰富的操作方法。本教程详细介绍了数组的创建、索引访问、元素修改、元素搜索以及数据转换。无论您是编程新手还是经验丰富的开发者，都能通过本教程快速提升在数据处理和Web开发中的数组操作技能。
-tags: ["前端"]
-star: true
+star: false
 
 # 启用评论评论
 comment: true

@@ -4,8 +4,7 @@ permalinkPattern: 2024/5/22/js-string-operation/
 
 title: JavaScript字符串操作 - 前端开发入门
 description: 深入了解JavaScript字符串的强大功能，从基本的创建和操作到复杂的查找、替换、编码和解码。本教程将带你一步步探索字符串处理的各个方面，包括实用的正则表达式技巧。无论你是编程新手还是希望巩固知识的开发者，这个教程都将为你提供清晰的指导和实践练习，帮助你提升在Web开发中处理文本数据的能力。
-tags: ["前端"]
-star: true
+star: false
 
 # 启用评论评论
 comment: true
