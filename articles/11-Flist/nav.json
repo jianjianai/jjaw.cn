@@ -110,5 +110,15 @@
         "link": "/2024/8/3/flist-deploy-git-hub-pages/"
       }
     ]
+  },
+  {
+    "title": "深入",
+    "link": "/2024/8/16/flist-thorough/",
+    "items": [
+      {
+        "title": "下载跨域限制级",
+        "link": "/2024/8/16/flist-thorough-cros/"
+      }
+    ]
   }
 ]
