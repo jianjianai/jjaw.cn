@@ -32,9 +32,16 @@ huggingFaceDatasetsAnalysis参数
     //最大深度,如果文件夹有很多层最大递归解析多少层，默认10
     maxDeep:3
     //path:"/test" //数据集的某文件夹，只挂载这个文件夹
+    // hideReadme: true, //隐藏README.MD文件
   }),
 }
 ```
+## huggingFaceDatasetsAnalysis 特性
+
+### 将文件夹中的 README.MD 文件显示在文件夹的简介区
+如果当前文件夹中有 README.MD 文件，则会将 README.MD 文件 显示在文件夹的简介区。
+
+![文件夹简介区](./imgs/1-文件夹简介区.png)
 
 ## 最佳实践
 
