@@ -20,12 +20,11 @@ star: true
     </div>
 </Demo>
 
-<style scoped>
+<div v-pre><style>
 .shwoWorld::before {
     animation: 5s linear 0s infinite running shwoWorld;
     content: "";
 }
-
 @keyframes shwoWorld {
     0% {content: "";}
     2% {content: "j";}
@@ -69,7 +68,7 @@ star: true
     88% {content: "今"}
     90% {content: ""}
 }
-</style>
+</style></div>
 
 ## 实现方法
 
@@ -82,11 +81,11 @@ star: true
 <p id="add-text" style="margin: 0;">你好</p>
 </Demo>
 
-<style scoped>
+<div v-pre><style>
 #add-text::before {
     content: "hello:";
 }
-</style>
+</style></div>
 
 ``` html
 <p id="add-text">你好</p>
@@ -107,12 +106,11 @@ star: true
 <p id="add-text1" style="margin: 0;">你好</p>
 </Demo>
 
-<style scoped>
+<div v-pre><style>
 #add-text1::before {
     animation: 3s linear 0s infinite running add-text1-animation;
     content: "";
 }
-
 @keyframes add-text1-animation {
     0% {content: "";}
     10% {content: "h";}
@@ -125,7 +123,7 @@ star: true
     80% {content: "he"}
     90% {content: "h"}
 }
-</style>
+</style></div>
 
 ``` html
 <p id="add-text1">你好</p>
