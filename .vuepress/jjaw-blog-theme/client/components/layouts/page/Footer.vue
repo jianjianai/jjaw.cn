@@ -9,6 +9,7 @@
         </div>
         <div><RouterLink to="/">神奇小破站 jjaw.cn</RouterLink></div>
         <div>图标真是随手画的</div>
+        <a href="https://icp.gov.moe/?keyword=20250060" target="_blank">萌ICP备20250060号</a>
     </div>
 </template>
 <style scoped>
