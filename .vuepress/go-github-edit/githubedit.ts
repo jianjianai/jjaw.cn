@@ -1,13 +1,11 @@
 import { computed } from "vue";
 import { useRoute } from "vue-router"
-declare const _github_edit_base_url_: string;
 
 export function useGithubEditUrl() {
     const route = useRoute();
     return computed(() => {
-        let editPath = route.query["edit"];
-        let githubEditUrl = _github_edit_base_url_;
-        return githubEditUrl + editPath;
+        let editPath = route.query["edit"] as string | undefined;
+        return editPath;
     });
 }
 

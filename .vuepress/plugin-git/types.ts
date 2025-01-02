@@ -21,7 +21,10 @@ export interface GitData {
     /**
      * 是否是根仓库仓库
      */
-    isRoot?:boolean;
+    isRoot?: boolean;
+
+    /** 如果不是根仓库，仓库的url */
+    externalRepo?: { url: string, branch: string };
 }
 export interface GitContributor {
     name: string;

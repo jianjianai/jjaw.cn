@@ -1,4 +1,4 @@
 export type github_edit = {
-    /**文件相对路径 */
-    filePathRelative:string|null
+    /**文件仓库url */
+    fileGitUrl:string|null
 }

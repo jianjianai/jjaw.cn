@@ -7,11 +7,11 @@ import { github_edit } from "./github_edit_type"
 let pageData = usePageData();
 let github_edit_link = computed(() => {
     let github_edit = pageData.value["github_edit"] as github_edit | undefined;
-    if (!github_edit?.filePathRelative) {
+    if (!github_edit?.fileGitUrl) {
         return null;
     }
     let par = new URLSearchParams();
-    par.append("edit", github_edit.filePathRelative);
+    par.append("edit", github_edit.fileGitUrl);
     par.append("t", pageData.value.title);
     return _github_edit_helpPath_ + "?" + par.toString();
 })

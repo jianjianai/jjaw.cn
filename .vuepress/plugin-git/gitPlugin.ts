@@ -8,6 +8,7 @@ import {
   getUpdatedTime,
 } from '@vuepress/plugin-git'
 import { glob } from 'glob'
+import { getConfigFile as repsitresGitCloneConfig } from '../repsitres-git-clone'
 
 /**
  * Options of @vuepress/plugin-git
@@ -27,10 +28,13 @@ export interface GitPluginOptions {
    * Whether to get the contributors of a page
    */
   contributors?: boolean
+
+  /** 外部仓库配置 */
+  externalRepo?: boolean;
 }
 
 export const gitPlugin =
-  ({ createdTime, updatedTime, contributors }: GitPluginOptions = {}): Plugin =>
+  ({ createdTime, updatedTime, contributors,externalRepo }: GitPluginOptions = {}): Plugin =>
   (app) => {
     const cwd = app.dir.source()
     const cwdSonPathSet = new Set<string>();
@@ -92,6 +96,17 @@ export const gitPlugin =
         ]
 
         page.data.git.isRoot = runConfig.isRoot;
+
+        if (!runConfig.isRoot) {
+          //如果不是根仓库，获取仓库的url
+          if (externalRepo !== false) {
+            const itemName = runCwd.substring(runCwd.lastIndexOf("/") + 1);
+            const d = (await repsitresGitCloneConfig()).find((item) => item.name == itemName);
+            if(d){
+              page.data.git.externalRepo = {url:d.url,branch:d.branch};
+            }
+          }
+        };
 
         if (createdTime !== false) {
           page.data.git.createdTime = await getCreatedTime(filePaths, runCwd)

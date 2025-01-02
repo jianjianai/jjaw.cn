@@ -5,7 +5,7 @@ import ContentBox from '../../layouts/box/ContentBox.vue';
 import HistoryIcon from '../../../imgs/history.vue';
 import ToEditOnGitHubHelp from '../../../../../go-github-edit/ToEditOnGitHubHelp.vue';
 const articleGitHubInfo = useArticleGitHubInfo();
-function githubAvatarUrlAddSize(url:URL):string{
+function githubAvatarUrlAddSize(url:string):string{
     const imgUrl = new URL(url);
     imgUrl.searchParams.append("s","64");
     return imgUrl.toString();
