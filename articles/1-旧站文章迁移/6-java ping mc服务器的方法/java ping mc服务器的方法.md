@@ -3,7 +3,7 @@ permalinkPattern: 2024/2/25/mc-ping-server/
 title: "Java Ping Mc服务器的方法"
 description: github上找了个例子，直接复制就完事了。复制粘贴，然后再改改。就变成自己的了，哈哈。
 # 是否在首页展示
-star: false
+star: true
 # 标签
 tags: ["经验"]
 comment: true
