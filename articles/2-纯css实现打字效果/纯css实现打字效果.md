@@ -20,7 +20,7 @@ star: true
     </div>
 </Demo>
 
-<div><style>
+<div><style v-pre>
 .shwoWorld::before {
     animation: 5s linear 0s infinite running shwoWorld;
     content: "";
@@ -81,7 +81,7 @@ star: true
 <p id="add-text" style="margin: 0;">你好</p>
 </Demo>
 
-<div><style>
+<div><style v-pre>
 #add-text::before {
     content: "hello:";
 }
@@ -106,7 +106,7 @@ star: true
 <p id="add-text1" style="margin: 0;">你好</p>
 </Demo>
 
-<div><style>
+<div><style v-pre>
 #add-text1::before {
     animation: 3s linear 0s infinite running add-text1-animation;
     content: "";
