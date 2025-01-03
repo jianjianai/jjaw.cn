@@ -20,7 +20,7 @@ star: true
     </div>
 </Demo>
 
-<div><style v-pre>
+<MdStyle>
 .shwoWorld::before {
     animation: 5s linear 0s infinite running shwoWorld;
     content: "";
@@ -68,7 +68,7 @@ star: true
     88% {content: "今"}
     90% {content: ""}
 }
-</style></div>
+</MdStyle>
 
 ## 实现方法
 
@@ -81,11 +81,11 @@ star: true
 <p id="add-text" style="margin: 0;">你好</p>
 </Demo>
 
-<div><style v-pre>
+<MdStyle>
 #add-text::before {
     content: "hello:";
 }
-</style></div>
+</MdStyle>
 
 ``` html
 <p id="add-text">你好</p>
@@ -106,7 +106,7 @@ star: true
 <p id="add-text1" style="margin: 0;">你好</p>
 </Demo>
 
-<div><style v-pre>
+<MdStyle>
 #add-text1::before {
     animation: 3s linear 0s infinite running add-text1-animation;
     content: "";
@@ -123,7 +123,7 @@ star: true
     80% {content: "he"}
     90% {content: "h"}
 }
-</style></div>
+</MdStyle>
 
 ``` html
 <p id="add-text1">你好</p>
