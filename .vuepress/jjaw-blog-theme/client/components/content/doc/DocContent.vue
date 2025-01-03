@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { usePageData } from 'vuepress/client';
-import { dateFormat } from '../../../js/client/Time';
+import { dateFormat, formatRelativeTime } from '../../../js/client/Time';
 import ContentBox from '../../layouts/box/ContentBox.vue';
 import CalendarIcon from '../../../imgs/calendar.vue';
+import HistoryIcon from '../../../imgs/history.vue';
 import { GitPluginPageData } from '@vuepress/plugin-git';
 import EditIcon from '../../../imgs/edit.vue';
 import ToEditOnGitHubHelp from '../../../../../go-github-edit/ToEditOnGitHubHelp.vue';
-const tiemF = (tiem: number) => dateFormat(new Date(tiem), (Y, M, D, h, m) => `${Y}-${M}-${D} ${h}:${m}`);
+const tiemF = (tiem: number) => dateFormat(new Date(tiem), (Y, M, D, h, m) => `${Y}-${M}-${D}`);
 const page = usePageData<GitPluginPageData>();
 
 
@@ -16,8 +17,16 @@ const page = usePageData<GitPluginPageData>();
         <template #header>
             <div class="doc-header">
                 <div class="h-left">
-                    <CalendarIcon class="calender-i"></CalendarIcon>
-                    <span class="calender-t">{{ tiemF(page.git.updatedTime) }}</span>
+                    <!-- 创建时间 -->
+                    <div class="h-left-item" :title="`发布于 ${tiemF(page.git.createdTime!)}`">
+                        <CalendarIcon class="calender-i"></CalendarIcon>
+                        <span class="calender-t">{{ tiemF(page.git.createdTime!) }}</span>
+                    </div>
+                    <!-- 更新时间 -->
+                    <div class="h-left-item" :title="`近期更新 ${formatRelativeTime(page.git.updatedTime!)}`">
+                        <HistoryIcon class="calender-i"></HistoryIcon>
+                        <span class="calender-t">{{ formatRelativeTime(page.git.updatedTime!) }}</span>
+                    </div>
                 </div>
                 <ToEditOnGitHubHelp class="h-right">
                     <EditIcon class="edit-i"></EditIcon>
@@ -30,6 +39,10 @@ const page = usePageData<GitPluginPageData>();
     </ContentBox>
 </template>
 <style scoped>
+.h-left-item{
+    display: flex;
+    align-items: center;
+}
 .calender-t {
     font-size: 0.9rem;
     margin-left: 0.3rem;
@@ -48,6 +61,9 @@ const page = usePageData<GitPluginPageData>();
 .h-left,.h-right{
     display: flex;
     align-items: center;
+}
+.h-left{
+    column-gap: 0.6rem;
 }
 
 .markdown-body {

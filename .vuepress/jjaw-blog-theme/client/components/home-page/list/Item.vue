@@ -3,13 +3,14 @@ import ContentBox from '../../layouts/box/ContentBox.vue'
 import { RouteLink, useRoute } from 'vuepress/client';
 import UserIcon from '../../../imgs/user.vue'
 import CalendarIcon from '../../../imgs/calendar.vue';
-import { dateFormat } from '../../../js/client/Time';
+import { dateFormat, formatRelativeTime } from '../../../js/client/Time';
 import TagIcon from '../../../imgs/tag.vue';
 import { hashString } from '../../../js/client/HashString';
+import HistoryIcon from '../../../imgs/history.vue';
 const route = useRoute();
-const getTagUrl = (tag:string)=>`/tags/${encodeURI(tag)}/`;
+const getTagUrl = (tag: string) => `/tags/${encodeURI(tag)}/`;
 const colourClassFun = (s: string) => `colour-${Math.abs(hashString(s) % 5)}`;
-const tiemF = (tiem: number) => dateFormat(new Date(tiem), (Y, M, D, h, m) => `${Y}-${M}-${D} ${h}:${m}`);
+const tiemF = (tiem: number) => dateFormat(new Date(tiem), (Y, M, D, h, m) => `${Y}-${M}-${D}`);
 const { item } = defineProps<{
     item: { path: string, info: any }
 }>();
@@ -23,26 +24,47 @@ const info = item.info;
         </h2>
         <p class="description">{{ info.description }}</p>
         <div class="butln">
-            <UserIcon class="user-i" src="../../../imgs/user.svg" />
-            <span class="user-n">{{ info.firstContributor?.name }}</span>
-            <CalendarIcon class="calender-i"></CalendarIcon>
-            <span class="date-n">{{ tiemF(info.updatedTime) }}</span>
-            <TagIcon class="tag-i"></TagIcon>
-            <RouteLink :to="getTagUrl(tag)" class="tag-n" v-for="tag of info.tags"
-                :class="[colourClassFun(tag), route.path == getTagUrl(tag) ? 'active' : null]" :key="tag">{{ tag }}
-            </RouteLink>
+            <!-- 用户 -->
+            <div class="butln-item" :title="`作者 ${info.firstContributor?.name}`">
+                <UserIcon class="user-i" src="../../../imgs/user.svg" />
+                <span class="user-n">{{ info.firstContributor?.name }}</span>
+            </div>
+            <!-- 发布时间 -->
+            <div class="butln-item" :title="`发布于 ${tiemF(info.createdTime)}`">
+                <CalendarIcon class="calender-i"></CalendarIcon>
+                <span class="date-n">{{ tiemF(info.createdTime) }}</span>
+            </div>
+            <!-- 更新时间 -->
+            <div class="butln-item" :title="`近期更新 ${formatRelativeTime(info.updatedTime)}`">
+                <HistoryIcon class="calender-i"></HistoryIcon>
+                <span class="date-n">{{ formatRelativeTime(info.updatedTime) }}</span>
+            </div>
+            <!-- 标签 -->
+            <div class="butln-item">
+                <TagIcon class="tag-i"></TagIcon>
+                <RouteLink :to="getTagUrl(tag)" class="tag-n" v-for="tag of info.tags"
+                    :class="[colourClassFun(tag), route.path == getTagUrl(tag) ? 'active' : null]" :key="tag">{{ tag }}
+                </RouteLink>
+            </div>
         </div>
     </ContentBox>
 </template>
 <style scoped>
-.tag-n.active{
+.butln-item{
+    display: flex;
+    align-items: center;
+}
+
+.tag-n.active {
     cursor: default;
 }
+
 .tag-n.active,
-.tag-n:hover{
+.tag-n:hover {
     background-color: var(--tags-list-tag-bgc-hover);
     color: var(--tags-list-tag-c-hover);
 }
+
 .tag-n {
     font-size: 0.8rem;
     font-weight: bolder;
@@ -59,7 +81,6 @@ const info = item.info;
     font-weight: bolder;
     font-size: 0.8rem;
     margin-left: 0.2rem;
-    margin-right: 0.5rem;
 }
 
 .user-i,
@@ -67,7 +88,6 @@ const info = item.info;
 .tag-i {
     width: 1rem;
     height: 1rem;
-    margin-left: 0.1rem;
 }
 
 .butln {
@@ -76,6 +96,7 @@ const info = item.info;
     flex-wrap: wrap;
     align-items: center;
     color: var(--item-list-butln-c);
+    column-gap: 0.6rem;
 }
 
 .item {

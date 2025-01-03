@@ -15,7 +15,7 @@ const pageData = usePageData();
         <template #default>
             <h1 class="doc-h-h1">{{ frontmatter.title || pageData.title  }}</h1>
             <p class="doc-h-p">{{ frontmatter.description }}</p>
-            <div class="tags" v-if="frontmatter.tags && frontmatter.tags.length > 0">
+            <div class="tags" v-if="frontmatter.tags && (frontmatter.tags as any).length > 0">
                 <TagIcon class="tag-i"></TagIcon>
                 <RouteLink class="tag-n" v-for="tag of frontmatter.tags" :to="getTagUrl(tag)"
                     :class="colourClassFun(tag)" :key="tag">

@@ -143,6 +143,7 @@ function buildBlogPluginOptions(): BlogPluginOptions {
                 description:page.frontmatter.description,
                 tags: page.frontmatter.tags || [],
                 updatedTime:(page.data.git as any)?.updatedTime,
+                createdTime:(page.data.git as any)?.createdTime,
                 firstContributor:(page.data.git as any)?.contributors[0]
             }
         },
