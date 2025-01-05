@@ -1,0 +1,2 @@
+import{m as _,u as a,g as d,_ as i,o as f,c as p}from"./app-CcpjxeBW.js";const u=_({__name:"MdStyle",setup(l,{expose:s}){s();const e=a(),n=d(()=>{let t="";if(e.default){const c=e.default();for(const r of c)typeof r.children=="string"&&(t+=r.children,t+=`
+`)}return"<style>"+t+"</style>"}),o={slot:e,html:n};return Object.defineProperty(o,"__isScriptSetup",{enumerable:!1,value:!0}),o}}),m=["innerHTML"];function y(l,s,e,n,o,t){return f(),p("div",{style:{display:"none"},innerHTML:n.html},null,8,m)}const S=i(u,[["render",y],["__file","MdStyle.vue"]]);export{S as default};
