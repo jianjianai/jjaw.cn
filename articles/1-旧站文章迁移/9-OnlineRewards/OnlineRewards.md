@@ -98,7 +98,7 @@ RewardRule:toDay
 
 
 ## 下载
-预览版本：[OnlineRewards [简简爱的插件构建] [Jenkins]](https://ci.pmcs.xyz/job/jian-ai-ai/job/OnlineRewards/) （感谢艾利格兰特提供的自动构建）
+预览版本：[gitee](https://gitee.com/jja8/OnlineRewards/releases/) 
 
 建议与反馈-插件实验室：[PlugClub / 插件实验室](https://jq.qq.com/?_wv=1027&k=LyeQlfSK) （群号:820131534）
 
