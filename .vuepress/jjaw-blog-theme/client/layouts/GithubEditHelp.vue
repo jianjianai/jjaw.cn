@@ -1,58 +1,43 @@
 <script setup lang="ts">
-import Main from '../components/layouts/page/Main.vue';
-import Header from '../components/layouts/page/Header.vue'
 import Body from '../components/layouts/page/ArticleBody.vue'
-import Footer from '../components/layouts/page/Footer.vue';
-import AsideMain from '../components/content/aside/AsideMain.vue';
-import DocContent from '../components/content/doc/DocContent.vue';
 import { useGithubEditTitle, useGithubEditUrl } from "../../../go-github-edit/githubedit";
 import ContentBox from '../components/layouts/box/ContentBox.vue';
 import { ClientOnly } from 'vuepress/client';
+import DocContent from '../components/content/doc/DocContent.vue';
+import AsideMain from '../components/content/aside/AsideMain.vue';
 const githubEditTitle = useGithubEditTitle();
 const githubEditUrl = useGithubEditUrl();
 
 </script>
 <template>
-    <Main>
-        <template #header>
-            <Header></Header>
-        </template>
-        <template #default>
-
-            <Body>
-                <div class="edit-on-github-main">
-                    <ContentBox class="edit-box">
-                        <template #header>
-                            <span style="font-weight: bolder;">编辑文章</span>
-                        </template>
-                        <template #default>
-                            <div class="edit-c">
-                                <ClientOnly>
-                                    <h2 class="edit-title">{{ githubEditTitle }}</h2>
-                                    <a class="edit-go" :href="githubEditUrl">
-                                        <span>编辑此文章</span>
-                                        <span>&nbsp;></span>
-                                    </a>
-                                </ClientOnly>
-                            </div>
-                        </template>
-                    </ContentBox>
-                </div>
-            </Body>
-
-            <Body>
+    <Body>
+        <div class="edit-on-github-main">
+            <ContentBox class="edit-box">
+                <template #header>
+                    <span style="font-weight: bolder;">编辑文章</span>
+                </template>
                 <template #default>
-                    <DocContent></DocContent>
+                    <div class="edit-c">
+                        <ClientOnly>
+                            <h2 class="edit-title">{{ githubEditTitle }}</h2>
+                            <a class="edit-go" :href="githubEditUrl">
+                                <span>编辑此文章</span>
+                                <span>&nbsp;></span>
+                            </a>
+                        </ClientOnly>
+                    </div>
                 </template>
-                <template #aside>
-                    <AsideMain></AsideMain>
-                </template>
-            </Body>
+            </ContentBox>
+        </div>
+    </Body>
+    <Body>
+        <template #default>
+            <DocContent></DocContent>
         </template>
-        <template #footer>
-            <Footer></Footer>
+        <template #aside>
+            <AsideMain></AsideMain>
         </template>
-    </Main>
+    </Body>
 </template>
 <style scoped>
 .edit-c {

@@ -171,6 +171,7 @@ const { isNavOpen, isAsideOpen } = toRefs(mainState);
     /* max-width: var(--mian-max-width); */
     width: min(100%, var(--layout-max-width));
     padding: 0 1rem;
+    transition: width 0.25s;
     /* overflow: hidden; */
 }
 

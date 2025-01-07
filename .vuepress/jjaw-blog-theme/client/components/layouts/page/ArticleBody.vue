@@ -89,7 +89,7 @@ const closeNavAndAside = ()=>{isNavOpen.value=false;isAsideOpen.value=false}
     flex: 1;
     min-width: 0;
     /* overflow: hidden; */
-    max-width: 960px;
+    /* max-width: 960px; */
 }
 
 .body {
