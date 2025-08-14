@@ -24,6 +24,7 @@ comment: true
 ---
 <script setup>
 import { ref, reactive } from "vue"
+const useSSl = ref(true);
 const serverName = ref("server1");
 const fileFile = ref("C://knapsackToGo4/player");
 const sqliteFile = ref("C://knapsackToGo4/playerData.db");
@@ -335,7 +336,7 @@ userName: {{userName}}
 修改：**PlayerDataCase.yml**
 <pre class="language-yaml">
 PassWord: {{passWord}}
-dataBaseURL: jdbc:mysql://{{mysqlAdderss}}/{{mysqlDataBase}}
+dataBaseURL: jdbc:mysql://{{mysqlAdderss}}/{{mysqlDataBase}}{{useSSl?"?useSSL=false":""}}
 holdLockTime: 30000
 serverName: {{serverName}}
 userName: {{userName}}
@@ -362,6 +363,10 @@ userName: {{userName}}
     <tr style="display: flex;">
         <td  >密码：</td>
         <td style="flex: 1;"><input type="text" v-model="passWord" style="width: 100%;"></td>
+    </tr>
+    <tr style="display: flex;">
+        <td  >关闭ssl：</td>
+        <td style="flex: 1;"><input type="checkbox" v-model="useSSl" style="width: 100%;"></td>
     </tr>
 </table>
 :::
