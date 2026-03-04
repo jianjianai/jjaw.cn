@@ -11,17 +11,28 @@ comment: true
 # Cloudflare Pages 下载代理
 
 ## 配置方法
-如果你使用 ```Cloudflare Pages``` 部署则可以直接使用 ```cloudflarePagesDownProxy()``` 他会自动完成全部配置，
-并且在开发阶段也有很好的预览体验。
+如果你使用 `Cloudflare Pages` 部署，可在挂载配置中设置：
 
-- downProxy: 下载代理
-``` typescript
+`downProxy.type = cloudflarePagesDownProxy`
+
+示例（`mounts/软件/KnapsackToGo4.json`）：
+
+```json
 {
-  mountPath:....,
-  analysis:....,
-  downProxy:cloudflarePagesDownProxy(),
+  "analysis": {
+    "type": "githubReleasesFilesAnalysis",
+    "options": {
+      "user": "jianjianai",
+      "repository": "KnapsackToGo4"
+    }
+  },
+  "downProxy": {
+    "type": "cloudflarePagesDownProxy"
+  }
 }
 ```
+
+不启用代理时可省略 `downProxy`，或写成 `{}`。
 
 ## 下一步
 - [-> 部署到自己喜欢的平台](../../6-部署到自己喜欢的平台.md)
