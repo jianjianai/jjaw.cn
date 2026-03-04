@@ -13,29 +13,39 @@ comment: true
 
 
 ## 配置方法
+例如：将 `Open-Orca/OpenOrca` 的 `main` 分支挂载到 `/huggingface测试`
 
-将用户 ```Open-Orca``` 的 ```OpenOrca``` 数据集的 ```main``` 分支挂载到 ```/huggingface测试``` 下
+文件：`mounts/huggingface测试/index.json`
 
-huggingFaceDatasetsAnalysis参数
-- userName 用户名
-- datasetsName 数据集名称
-- branchName 分支名称
-- maxDeep 最大深度,如果文件夹有很多层最大递归解析多少层，默认10
-
-``` typescript
+```json
 {
-  mountPath:"/huggingface测试",
-  analysis:huggingFaceDatasetsAnalysis({
-    userName:"Open-Orca",
-    datasetsName:"OpenOrca",
-    branchName:"main",
-    //最大深度,如果文件夹有很多层最大递归解析多少层，默认10
-    maxDeep:3
-    //path:"/test" //数据集的某文件夹，只挂载这个文件夹
-    // hideReadme: true, //隐藏README.MD文件
-  }),
+  "analysis": {
+    "type": "huggingFaceDatasetsAnalysis",
+    "options": {
+      "userName": "Open-Orca",
+      "datasetsName": "OpenOrca",
+      "branchName": "main",
+      "maxDeep": 3
+    }
+  },
+  "downProxy": {
+    "type": "cloudflarePagesDownProxy"
+  }
 }
 ```
+
+如果只想挂载数据集的某个子目录，可增加 `path`。
+
+## 参数说明
+`analysis.type = huggingFaceDatasetsAnalysis`
+
+- `userName`：用户名或组织名（必填）
+- `datasetsName`：数据集名（必填）
+- `branchName`：分支名（必填）
+- `path`：起始目录（可选）
+- `maxDeep`：最大递归深度（可选，默认 10）
+- `hideReadme`：是否隐藏 README 文件（可选）
+
 ## huggingFaceDatasetsAnalysis 特性
 
 ### 将文件夹中的 README.MD 文件显示在文件夹的简介区

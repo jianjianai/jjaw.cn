@@ -9,26 +9,64 @@ star: false
 comment: true
 ---
 # 挂载 GitHub Releases
-将 GitHub Releases 挂载到 FList 上
+将 GitHub Releases 发行资产挂载到 FList。
 
 ## 配置方法
-将 ```jianjianai``` 的 ```FList``` 仓库挂载到根目录 ```/``` 下
+例如：将 `jianjianai/KnapsackToGo4` 挂载到 `/软件/KnapsackToGo4`
 
-- mountPath: 挂载路径,就是将文件源中的文件放到什么路径下
-- analysis: 文件源分析器，这里使用的是 ```githubReleasesFilesAnalysis```，用于解析 GitHub Releases 中的文件
-``` typescript
+文件：`mounts/软件/KnapsackToGo4.json`
+
+```json
 {
-  mountPath:"/",
-  analysis:githubReleasesFilesAnalysis({user:"jianjianai", repository:"FList"})
+  "analysis": {
+    "type": "githubReleasesFilesAnalysis",
+    "options": {
+      "user": "jianjianai",
+      "repository": "KnapsackToGo4"
+    }
+  },
+  "downProxy": {
+    "type": "cloudflarePagesDownProxy"
+  }
 }
 ```
-这样就把 ```jianjianai``` 的 ```FList``` 仓库挂载到了根目录 ```/``` 下了。
 
-## githubReleasesFilesAnalysis 特性
-```githubReleasesFilesAnalysis``` 会将  ```GitHub Releases```
-中的每个标签解析为一个目录，标签下发行的文件放到这个目录中。例如:
-- ```v1.0``` -> ```/v1.0```
-- ```v1.1``` -> ```/v1.1```
+路径会由文件名自动推导：
+
+- `mounts/index.json` → `/`
+- `mounts/软件/KnapsackToGo4.json` → `/软件/KnapsackToGo4`
+
+如需覆盖默认路径，可显式添加 `mountPath`。
+
+## 参数说明
+`analysis.type = githubReleasesFilesAnalysis`
+
+- `user`：GitHub 用户名或组织名（必填）
+- `repository`：仓库名（必填）
+- `authorizationToken`：GitHub Token（可选，建议配置以避免限流）
+
+`authorizationToken` 支持从环境变量读取：
+
+```json
+{
+  "analysis": {
+    "type": "githubReleasesFilesAnalysis",
+    "options": {
+      "user": "nilaoda",
+      "repository": "BBDown",
+      "authorizationToken": {
+        "$env": "GITHUB_TOKEN"
+      }
+    }
+  }
+}
+```
+
+## 特性
+`githubReleasesFilesAnalysis` 会把每个 Release 标签解析为目录：
+
+- `v1.0` → `/v1.0`
+- `v1.1` → `/v1.1`
 
 如果想要将文件放到```/```下可以将标签名称命名为 ```root```,在 ```root``` 标签下的文件会被放到 ```/``` 下。
 

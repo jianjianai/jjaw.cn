@@ -12,26 +12,55 @@ comment: true
 将 GitHub Repos 挂载到 FList 上
 
 ## 配置方法
-将 ```Aikoyori``` 的 ```ProgrammingVTuberLogos``` 仓库挂载到根目录 ```/``` 下
 
-- mountPath: 挂载路径,就是将文件源中的文件放到什么路径下
-- analysis: 文件源分析器，这里使用的是 ```githubReposAnalysis```，用于解析 GitHub Repos 中的文件
-``` typescript
+例如：将 `Aikoyori/ProgrammingVTuberLogos` 挂载到 `/ProgrammingVTuberLogos`
+
+文件：`mounts/ProgrammingVTuberLogos.json`
+
+```json
 {
-  mountPath: "/ProgrammingVTuberLogos",
-  analysis: githubReposAnalysis({
-    user: "Aikoyori",
-    repository: "ProgrammingVTuberLogos",
-    // rootPath: string, //根路径,挂载仓库的路径
-    // authorizationToken: string, //github token
-    // ref: string, //github分支
-    // maxDeep: number, //最大深度,默认10
-    // hideReadme: true, //隐藏README.MD文件
-  }),
+  "analysis": {
+    "type": "githubReposAnalysis",
+    "options": {
+      "user": "Aikoyori",
+      "repository": "ProgrammingVTuberLogos",
+      "ref": "main",
+      "maxDeep": 5
+    }
+  },
+  "downProxy": {
+    "type": "cloudflarePagesDownProxy"
+  }
 }
 ```
 
-这样就把 ```Aikoyori``` 的 ```ProgrammingVTuberLogos``` 仓库挂载到了根目录 ```/``` 下了。
+## 参数说明
+`analysis.type = githubReposAnalysis`
+
+- `user`：GitHub 用户名或组织名（必填）
+- `repository`：仓库名（必填）
+- `rootPath`：仓库内起始目录（可选）
+- `authorizationToken`：GitHub Token（可选）
+- `ref`：分支 / 标签 / 提交（可选）
+- `maxDeep`：最大递归深度（可选，默认 10）
+- `hideReadme`：是否隐藏 README 文件（可选）
+
+`authorizationToken` 支持环境变量对象写法：
+
+```json
+{
+  "analysis": {
+    "type": "githubReposAnalysis",
+    "options": {
+      "user": "your-name",
+      "repository": "your-repo",
+      "authorizationToken": {
+        "$env": "GITHUB_TOKEN"
+      }
+    }
+  }
+}
+```
 
 
 ## githubReposAnalysis 特性
@@ -61,13 +90,16 @@ comment: true
 
 ### .README.MD 文件太多影响观感
 可以使用 hideReadme 选项将这些文件隐藏掉。
-``` typescript
+```json
 {
-  .....
-  analysis: githubReposAnalysis({
-    .....
-    hideReadme: true, //隐藏README.MD文件
-  }),
+  "analysis": {
+    "type": "githubReposAnalysis",
+    "options": {
+      "user": "your-name",
+      "repository": "your-repo",
+      "hideReadme": true
+    }
+  }
 }
 ```
 

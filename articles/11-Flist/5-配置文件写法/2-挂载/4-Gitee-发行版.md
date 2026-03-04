@@ -12,24 +12,35 @@ comment: true
 将 Gitee 发行版挂载到 FList 上
 
 ## 配置方法
-将 ```jianjianai``` 的 ```FList``` 仓库挂载到根目录 ```/``` 下
 
-- mountPath: 挂载路径,就是将文件源中的文件放到什么路径下
-- analysis: 文件源分析器，这里使用的是 ```giteeReleasesFilesAnalysis```，用于解析 GitHub Releases 中的文件
-``` typescript
+例如：将 `jianjianai/FList` 挂载到根目录 `/`
+
+文件：`mounts/index.json`
+
+```json
 {
-  mountPath:"/",
-  analysis:giteeReleasesFilesAnalysis({
-    user:"jianjianai",
-    repository:"FList",
-    //direction: 'asc', //排序
-    //access_token: 'xxxx', //用户token
-    //page: 0, //第几页
-    //per_page: 100 //一页显示多少个
-  })
+    "analysis": {
+        "type": "giteeReleasesFilesAnalysis",
+        "options": {
+            "user": "jianjianai",
+            "repository": "FList",
+            "direction": "desc"
+        }
+    }
 }
 ```
-giteeReleasesFilesAnalysis的配置参数详细信息前往gitee api文档:
+
+## 参数说明
+`analysis.type = giteeReleasesFilesAnalysis`
+
+- `user`：Gitee 用户名或组织名（必填）
+- `repository`：仓库名（必填）
+- `direction`：排序方向，`desc` / `asc`（可选）
+- `access_token`：Gitee Token（可选）
+- `page`：页码（可选）
+- `per_page`：每页数量（可选）
+
+参数详情可参考 Gitee API：
 [https://gitee.com/api/v5/swagger#/getV5ReposOwnerRepoReleases](https://gitee.com/api/v5/swagger#/getV5ReposOwnerRepoReleases)
 
 
@@ -49,36 +60,44 @@ giteeReleasesFilesAnalysis的配置参数详细信息前往gitee api文档:
 ## 最佳实践
 
 ### tag数量超过100个
-如果tag数量超过100个则可以将每一页分开写成多个解析器挂载到相同的目录，文件会自动合并。
-``` typescript
-...
-theme: FileList([
-    ...
-    {
-        mountPath:"/gieee",
-        analysis:giteeReleasesFilesAnalysis({
-            user:"jianjianai",
-            repository:"FList",
-            page: 0, //第一页
-            per_page: 100 //一页显示多少个
-        })
-    },
-    {
-        mountPath:"/gieee",
-        analysis:giteeReleasesFilesAnalysis({
-            user:"jianjianai",
-            repository:"FList",
-            page: 2, //第二页
-            per_page: 100 //一页显示多少个
-        })
+如果 tag 数量较多，可拆成多个挂载文件并显式设置同一个 `mountPath`，结果会合并。
+
+`mounts/gitee/page-1.json`
+
+```json
+{
+    "mountPath": "/gitee",
+    "analysis": {
+        "type": "giteeReleasesFilesAnalysis",
+        "options": {
+            "user": "jianjianai",
+            "repository": "FList",
+            "page": 1,
+            "per_page": 100
+        }
     }
-    ...
-])
-...
+}
+```
+
+`mounts/gitee/page-2.json`
+
+```json
+{
+    "mountPath": "/gitee",
+    "analysis": {
+        "type": "giteeReleasesFilesAnalysis",
+        "options": {
+            "user": "jianjianai",
+            "repository": "FList",
+            "page": 2,
+            "per_page": 100
+        }
+    }
+}
 ```
 
 ### 关于下载代理
-gitee服务器在国内所以下载速度极快
+Gitee 在国内访问通常较快。
 
 由于跨域的原因，PDF，TXT，这些文件无法预览，只能下载。（视频图片音频可以预览）。
 

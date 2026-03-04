@@ -12,41 +12,52 @@ comment: true
 如果拥有某个文件的加载地址，也可以将其挂载到 FList 上。
 
 ## 配置方法
-将 ```https://example.com/test.jpg``` 的文件挂载到 ```/example``` 下,有两种配置文件分析器的的方式。
+`analysis.type = fileUrlTreeAnalysis`，其 `options` 本身就是“路径 → URL”映射对象。
 
-1. 将挂载路径设置到```/example```下，之后配置 ```fileUrlTreeAnalysis``` ,将文件放到 ```/``` 下。
-``` typescript
+下面两种写法都可以把 `https://example.com/test.jpg` 挂载到 `/example/test.jpg`。
+
+### 写法 1：通过文件路径推导挂载目录
+文件：`mounts/example/index.json`（推导为 `/example`）
+
+```json
 {
-  mountPath:"/example",
-  analysis:fileUrlTreeAnalysis({
-    "/test.jpg":"https://example.com/test.jpg"
-  }),
+  "analysis": {
+    "type": "fileUrlTreeAnalysis",
+    "options": {
+      "test.jpg": "https://example.com/test.jpg"
+    }
+  }
 }
 ```
 
-2. 将挂载路径设置到```/```下，之后配置 ```fileUrlTreeAnalysis``` ,将文件放到 ```/example``` 下。
-``` typescript
+### 写法 2：挂到根目录，在 options 里写完整路径
+文件：`mounts/index.json`（推导为 `/`）
+
+```json
 {
-  mountPath:"/",
-  analysis:fileUrlTreeAnalysis({
-    "/example/test.jpg":"https://example.com/test.jpg"
-  }),
+  "analysis": {
+    "type": "fileUrlTreeAnalysis",
+    "options": {
+      "example/test.jpg": "https://example.com/test.jpg"
+    }
+  }
 }
 ```
 
-```fileUrlTreeAnalysis``` 可以一次分析多个文件。
+`fileUrlTreeAnalysis` 支持一次配置多个文件：
 
-``` typescript
+```json
 {
-  mountPath:"/",
-  analysis:fileUrlTreeAnalysis({
-    "/example/test.jpg":"https://example.com/test.jpg",
-    "/test1.jpg":"https://example.com/test1.jpg",
-    "/test/test2.jpg":"https://example.com/test2.jpg",
-    "/example/test3.jpg":"https://example.com/test3.jpg",
-    "/example/test/test4.jpg":"https://example.com/test4.jpg",
-    .....
-  }),
+  "analysis": {
+    "type": "fileUrlTreeAnalysis",
+    "options": {
+      "example/test.jpg": "https://example.com/test.jpg",
+      "test1.jpg": "https://example.com/test1.jpg",
+      "test/test2.jpg": "https://example.com/test2.jpg",
+      "example/test3.jpg": "https://example.com/test3.jpg",
+      "example/test/test4.jpg": "https://example.com/test4.jpg"
+    }
+  }
 }
 ```
 
@@ -55,24 +66,32 @@ comment: true
 如果您的文件下载地址访问速度不佳。 或者由于跨域的原因，PDF，TXT，这些文件无法预览，可以配置代理。
 
 
-如果只想代理部分文件，可以将文件分析器分为两个来配置
-``` typescript
-// 不需要代理的文件
+如果只想代理部分文件，建议拆成两个挂载文件，可以置相同的 `mountPath` 进行合并：
+
+```json
 {
-  mountPath:"/",
-  analysis:fileUrlTreeAnalysis({
-    "/example/test.jpg":"https://example.com/test.jpg",
-    ....
-  }),
-},
-// 需要代理的文件
+  "mountPath": "/",
+  "analysis": {
+    "type": "fileUrlTreeAnalysis",
+    "options": {
+      "example/no-proxy.txt": "https://example.com/no-proxy.txt"
+    }
+  }
+}
+```
+
+```json
 {
-  mountPath:"/",
-  analysis:fileUrlTreeAnalysis({
-    "/example/test1.jpg":"https://example.com/test1.jpg",
-    ....
-  }),
-  downProxy:cloudflarePagesDownProxy(),
+  "mountPath": "/",
+  "analysis": {
+    "type": "fileUrlTreeAnalysis",
+    "options": {
+      "example/need-proxy.txt": "https://example.com/need-proxy.txt"
+    }
+  },
+  "downProxy": {
+    "type": "cloudflarePagesDownProxy"
+  }
 }
 ```
 
